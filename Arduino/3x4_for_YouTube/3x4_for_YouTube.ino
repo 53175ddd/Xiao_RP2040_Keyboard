@@ -1,15 +1,21 @@
 #include <Keyboard.h>
 
-#define DEBUG
+// デバッグ関連の処理の有効無効を指定:
+//#define DEBUG
 
-#define Scan0 D3
+// 読み取り間隔 (msec):
+#define delayTime 125
+
+// 使用するGPIOを定義:
+#define Scan0 D5
 #define Scan1 D4
-#define Scan2 D5
+#define Scan2 D3
 #define Read0 D7
 #define Read1 D8
 #define Read2 D9
 #define Read3 D10
 
+// キー名称と識別番号の対応を定義:
 #define Key_00 1
 #define Key_01 2
 #define Key_02 3
@@ -29,7 +35,7 @@ const uint8_t keyMap[sizeof(Scan)][sizeof(Read)] = {{Key_00, Key_01, Key_02, Key
                                                     {Key_10, Key_11, Key_12, Key_13},
                                                     {Key_20, Key_21, Key_22, Key_23}};
 
-uint8_t Matrix[sizeof(Scan)][sizeof(Read)];
+uint8_t Matrix[sizeof(Scan)][sizeof(Read)];  // キーの状態を保存する配列:
 
 void setup(void) {
 #ifdef DEBUG
@@ -48,10 +54,10 @@ void setup(void) {
 }
 
 void loop(void) {
-  readKeyPad();
-  checkMatrix();
+  readKeyPad();      // キーボードの状態を読み取り、配列を更新する:
+  checkMatrix();     // 配列を参照し押されたかどうかを判断:
 
-  delay(125);
+  delay(delayTime);  // 読み取り間隔を設定:
 }
 
 void readKeyPad(void) {
@@ -82,13 +88,13 @@ void checkMatrix(void) {
   for(uint8_t i = 0; i < sizeof(Scan); i++) {  // キーボード出力:
     for(uint8_t o = 0; o < sizeof(Read); o++) {
       if((Matrix[i][o] & 0b00000011) == 0b01) {
-        KeyOut(keyMap[i][o]);
+        keyOut(keyMap[i][o]);
       }
     }
   }
 }
 
-void KeyOut(uint8_t keys) {
+void keyOut(uint8_t keys) {
   switch(keys) {
     case Key_00:            // 再生速度↑:
       Keyboard.print(">");
