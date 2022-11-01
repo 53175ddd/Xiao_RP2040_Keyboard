@@ -97,40 +97,40 @@ void checkMatrix(void) {
 void keyOut(uint8_t keys) {
   switch(keys) {
     case Key_00:            // 再生速度↑:
-      Keyboard.print(">");
+      Keyboard.print('>');
       break;
 
     case Key_01:            // 10秒戻る:
-      Keyboard.print("j");
+      Keyboard.print('j');
       break;
 
     case Key_02:            // 10秒進む:
-      Keyboard.print("l");
+      Keyboard.print('l');
       break;
 
     case Key_03:            // フルスクリーン:
-      Keyboard.print("f");
+      Keyboard.print('f');
       break;
 
     case Key_10:            // 再生速度↓:
-      Keyboard.print("<");
+      Keyboard.print('<');
       break;
 
     case Key_11:            // 再生・停止:
-      Keyboard.print("k");
+      Keyboard.print('k');
       break;
 
     case Key_12:            // ミュート:
-      Keyboard.print("m");
+      Keyboard.print('m');
       break;
 
     case Key_13:            // シアターモード:
-      Keyboard.print("t");
+      Keyboard.print('t');
       break;
 
     case Key_20:            // 前の動画へ:
       Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press(KEY_P);
+      Keyboard.press('p');
       Keyboard.releaseAll();
       break;
 
@@ -148,7 +148,7 @@ void keyOut(uint8_t keys) {
 
     case Key_23:            // 次の動画へ:
       Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press(KEY_N);
+      Keyboard.press('n');
       Keyboard.releaseAll();
       break;
   }
