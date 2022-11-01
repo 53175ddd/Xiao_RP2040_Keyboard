@@ -128,24 +128,28 @@ void keyOut(uint8_t keys) {
       Keyboard.print("t");
       break;
 
-    case Key_20:            // チャプター戻る:
+    case Key_20:            // 前の動画へ:
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_P);
+      Keyboard.releaseAll();
+      break;
+
+    case Key_21:            // チャプター戻る:
       Keyboard.press(KEY_LEFT_SHIFT);
       Keyboard.press(KEY_LEFT_ARROW);
       Keyboard.releaseAll();
       break;
 
-    case Key_21:            // チャプター進む:
+    case Key_22:            // チャプター進む:
       Keyboard.press(KEY_LEFT_SHIFT);
       Keyboard.press(KEY_RIGHT_ARROW);
       Keyboard.releaseAll();
       break;
 
-    case Key_22:            // フレーム戻る:
-      Keyboard.print(",");
-      break;
-
-    case Key_23:            // フレーム進む:
-      Keyboard.print(".");
+    case Key_23:            // 次の動画へ:
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_N);
+      Keyboard.releaseAll();
       break;
   }
 }
