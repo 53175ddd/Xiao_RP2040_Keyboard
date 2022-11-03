@@ -4,12 +4,15 @@
 //#define DEBUG
 
 // 読み取り間隔 (msec):
-#define delayTime 125
+#define delayTime 50
+
+#define MODE_Press   true
+#define MODE_Release false
 
 // 使用するGPIOを定義:
-#define Scan0 D5
+#define Scan0 D3
 #define Scan1 D4
-#define Scan2 D3
+#define Scan2 D5
 #define Read0 D7
 #define Read1 D8
 #define Read2 D9
@@ -87,69 +90,123 @@ void readKeyPad(void) {
 void checkMatrix(void) {
   for(uint8_t i = 0; i < sizeof(Scan); i++) {  // キーボード出力:
     for(uint8_t o = 0; o < sizeof(Read); o++) {
-      if((Matrix[i][o] & 0b00000011) == 0b01) {
-        keyOut(keyMap[i][o]);
+            if((Matrix[i][o] & 0b00001111) == 0b0011) {
+        keyOut(keyMap[i][o], MODE_Press);
+      }else if((Matrix[i][o] & 0b00001111) == 0b1100) {
+        keyOut(keyMap[i][o], MODE_Release);
       }
     }
   }
 }
 
-void keyOut(uint8_t keys) {
+void keyOut(const uint8_t keys, const bool mode) {
   switch(keys) {
     case Key_00:            // 再生速度↑:
-      Keyboard.print('>');
+      if(mode) {
+        Keyboard.press('>');
+      }else {
+        Keyboard.release('>');
+      }
       break;
 
     case Key_01:            // 10秒戻る:
-      Keyboard.print('j');
+      if(mode) {
+        Keyboard.press('j');
+      }else {
+        Keyboard.release('j');
+      }
       break;
 
     case Key_02:            // 10秒進む:
-      Keyboard.print('l');
+      if(mode) {
+        Keyboard.press('l');
+      }else {
+        Keyboard.release('l');
+      }
       break;
 
     case Key_03:            // フルスクリーン:
-      Keyboard.print('f');
+      if(mode) {
+        Keyboard.press('f');
+      }else {
+        Keyboard.release('f');
+      }
       break;
 
     case Key_10:            // 再生速度↓:
-      Keyboard.print('<');
+      if(mode) {
+        Keyboard.press('<');
+      }else {
+        Keyboard.release('<');
+      }
       break;
 
     case Key_11:            // 再生・停止:
-      Keyboard.print('k');
+      if(mode) {
+        Keyboard.press('k');
+      }else {
+        Keyboard.release('k');
+      }
       break;
 
     case Key_12:            // ミュート:
-      Keyboard.print('m');
+      if(mode) {
+        Keyboard.press('m');
+      }else {
+        Keyboard.release('m');
+      }
       break;
 
     case Key_13:            // シアターモード:
-      Keyboard.print('t');
+      if(mode) {
+        Keyboard.press('t');
+      }else {
+        Keyboard.release('t');
+      }
       break;
-
+/*
     case Key_20:            // 前の動画へ:
-      Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press('p');
-      Keyboard.releaseAll();
+      if(mode) {
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press('p');
+        delay(5);
+        Keyboard.releaseAll();
+      }else {
+        // 規定動作なし:
+      }
       break;
 
     case Key_21:            // チャプター戻る:
-      Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press(KEY_LEFT_ARROW);
-      Keyboard.releaseAll();
+      if(mode) {
+        Keyboard.press(KEY_LEFT_SHIFT);
+        delay(5);
+        Keyboard.press(KEY_LEFT_ARROW);
+        Keyboard.releaseAll();
+      }else {
+        // 規定動作なし:
+      }
       break;
 
     case Key_22:            // チャプター進む:
-      Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press(KEY_RIGHT_ARROW);
-      Keyboard.releaseAll();
+      if(mode) {
+        Keyboard.press(KEY_LEFT_SHIFT);
+        delay(5);
+        Keyboard.press(KEY_RIGHT_ARROW);
+        Keyboard.releaseAll();
+      }else {
+        // 規定動作なし:
+      }
       break;
 
     case Key_23:            // 次の動画へ:
-      Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press('n');
-      Keyboard.releaseAll();
-      break;
+      if(mode) {
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press('n');
+        delay(5);
+        Keyboard.releaseAll();
+      }else {
+        // 規定動作なし:
+      }
+      break;*/
   }
 }
