@@ -1,13 +1,19 @@
 /**********About This File**********
   このファイルはサンプルコードです
   YouTube視聴用ショートカットキーボード
-  Version:v1
+  Version:v1.1
 ***********************************/
 
 #include <Keyboard.h>
 
 // デバッグ関連の処理の有効無効を指定:
-//#define DEBUG
+#define DEBUG_Serial
+
+// 実行速度モニタリングの有効無効を指定:
+#define DEBUG_Times
+
+// テスト用にキー出力を無効にする:
+//#define TEST
 
 // 読み取り間隔 (microsec):
 #define delayTime 5000
@@ -51,6 +57,12 @@ const uint8_t keyMap[sizeof(Scan)][sizeof(Read)] = {{Key_00, Key_01, Key_02, Key
 // キーマトリクスの状態保存用配列:
 volatile uint8_t Matrix[sizeof(Scan)][sizeof(Read)];
 
+#ifdef DEBUG_Times
+  #ifndef DEBUG_Serial
+  #define DEBUG_Serial
+  #endif
+#endif
+
 void setup(void) {
 #ifdef DEBUG
   // デバッグ用シリアル通信を115200bpsで開始:
@@ -72,8 +84,20 @@ void setup(void) {
 }
 
 void loop(void) {
+#ifdef DEBUG_Times
+  uint16_t startTime = micros();
+#endif
+
   readKeyPad();      // キーボードの状態を読み取り、配列を更新する:
   checkMatrix();     // 配列を参照し押されたかどうかを判断:
+
+#ifdef DEBUG_Times
+  uint16_t endTime = micros();
+  uint8_t diff = endTime - startTime;
+  char buf[30];
+  sprintf(buf, "Running Time : %d micro sec.\n", diff);
+  Serial.print(buf);
+#endif
 
   delayMicroseconds(delayTime);  // 読み取り間隔を設定:
 }
@@ -88,13 +112,21 @@ void readKeyPad(void) {
     digitalWrite(Scan[i], HIGH);                 // 定常状態に戻す:
   }
 
-#ifdef DEBUG
+#ifdef DEBUG_Serial
   // デバッグ表示:
   for(uint8_t i = 0; i < sizeof(Scan); i++) {
     for(uint8_t o = 0; o < sizeof(Read); o++) {
       char buff[16];
-      sprintf(buff, "Matrix[%d][%d] = %8b\n", i, o, Matrix[i][o]);
+      sprintf(buff, "Matrix[%d][%d] = ", i, o);
       Serial.print(buff);
+      for(uint8_t b = 7; b > 0; b--) {
+        if((Matrix[i][o] & 1 << b) == 0) {
+          Serial.print("0");
+        }else {
+          Serial.print("1");
+        }
+      }
+      Serial.print("\n");
     }
   }
   Serial.print("\n");
@@ -115,6 +147,7 @@ void checkMatrix(void) {
 }
 
 void keyOut(const uint8_t keys, const bool mode) {
+#ifndef TEST
   switch(keys) {
     case Key_00:            // 再生速度↑:
       if(mode) {
@@ -225,9 +258,10 @@ void keyOut(const uint8_t keys, const bool mode) {
       break;
 
     default:
-#ifdef DEBUG
+#ifdef DEBUG_Serial
       Serial.print("Incorrect value was used.");
 #endif
       break;
   }
+#endif
 }
