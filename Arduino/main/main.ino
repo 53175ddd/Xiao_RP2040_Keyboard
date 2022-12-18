@@ -1,22 +1,24 @@
 #include <Keyboard.h>
 
-// デバッグ関連の処理の有効無効を指定:
-#define DEBUG_Serial
+// キーマトリクスの処理の有効無効を指定:
+//#define DEBUG_Matrix
 
 // 実行速度モニタリングの有効無効を指定:
-#define DEBUG_Times
-
-#ifdef DEBUG_Times
-  #ifndef DEBUG_Serial
-  #define DEBUG_Serial
-  #endif
-#endif
+//#define DEBUG_Times
 
 // テスト用にキー出力を無効にする:
 //#define TEST
 
 // 読み取り間隔 (microsec):
 #define delayTime 5000
+
+#ifdef DEBUG_Times
+  #define DEBUG
+#endif
+
+#ifdef DEBUG_Matrix
+  #define DEBUG
+#endif
 
 // キー出力モードの指定用:
 #define MODE_Press   true
@@ -89,7 +91,7 @@ void loop(void) {
   uint16_t endTime = micros();
   uint8_t diff = endTime - startTime;
   char buf[30];
-  sprintf(buf, "Running Time : %d micro sec.\n", diff);
+  sprintf(buf, " - Running Time : %2d micro sec.\n\n", diff);
   Serial.print(buf);
 #endif
 
@@ -106,13 +108,11 @@ void readKeyPad(void) {
     digitalWrite(Scan[i], HIGH);                 // 定常状態に戻す:
   }
 
-#ifdef DEBUG_Serial
+#ifdef DEBUG_Matrix
   // デバッグ表示:
   for(uint8_t i = 0; i < sizeof(Scan); i++) {
+    Serial.print(" | ");
     for(uint8_t o = 0; o < sizeof(Read); o++) {
-      char buff[16];
-      sprintf(buff, "Matrix[%d][%d] = ", i, o);
-      Serial.print(buff);
       for(uint8_t b = 7; b > 0; b--) {
         if((Matrix[i][o] & 1 << b) == 0) {
           Serial.print("0");
@@ -120,10 +120,10 @@ void readKeyPad(void) {
           Serial.print("1");
         }
       }
-      Serial.print("\n");
+      Serial.print(" | ");
     }
+    Serial.print("\n");
   }
-  Serial.print("\n");
 #endif
 }
 
@@ -142,125 +142,117 @@ void checkMatrix(void) {
 
 void keyOut(const uint8_t keys, const bool mode) {
 #ifndef TEST
-/********************************************
-  この関数内にスイッチが操作された際の処理を記述します
-  以下概要:
-  
-  ```
-    case Key_00:  // キー00:
-      if(mode) {
-        // 押されたときの処理:
-      }else {
-        // 放されたときの処理:
-      }
-      break;
-  ```
-  
-  具体的な記述方法はサンプルコードをご覧ください
-********************************************/
-
   switch(keys) {
-/*******************************************/
-    case Key_00:
+    case Key_00:            // 再生速度↑:
       if(mode) {
-        
+        Keyboard.press('>');
       }else {
-        
+        Keyboard.release('>');
       }
       break;
-/*******************************************/
-    case Key_01:
+
+    case Key_01:            // 10秒戻る:
       if(mode) {
-        
+        Keyboard.press('j');
       }else {
-        
+        Keyboard.release('j');
       }
       break;
-/*******************************************/
-    case Key_02:
+
+    case Key_02:            // 10秒進む:
       if(mode) {
-        
+        Keyboard.press('l');
       }else {
-        
+        Keyboard.release('l');
       }
       break;
-/*******************************************/
-    case Key_03:
+
+    case Key_03:            // フルスクリーン:
       if(mode) {
-        
+        Keyboard.press('f');
       }else {
-        
+        Keyboard.release('f');
       }
       break;
-/*******************************************/
-    case Key_10:
+
+    case Key_10:            // 再生速度↓:
       if(mode) {
-        
+        Keyboard.press('<');
       }else {
-        
+        Keyboard.release('<');
       }
       break;
-/*******************************************/
-    case Key_11:
+
+    case Key_11:            // 再生・停止:
       if(mode) {
-        
+        Keyboard.press('k');
       }else {
-        
+        Keyboard.release('k');
       }
       break;
-/*******************************************/
-    case Key_12:
+
+    case Key_12:            // ミュート:
       if(mode) {
-        
+        Keyboard.press('m');
       }else {
-        
+        Keyboard.release('m');
       }
       break;
-/*******************************************/
-    case Key_13:
+
+    case Key_13:            // シアターモード:
       if(mode) {
-        
+        Keyboard.press('t');
       }else {
-        
+        Keyboard.release('t');
       }
       break;
-/*******************************************/
-    case Key_20:
+
+    case Key_20:            // 動画の頭に移動:
       if(mode) {
-        
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press('p');
+        delay(5);
+        Keyboard.releaseAll();
       }else {
-        
+        // 規定動作なし:
       }
       break;
-/*******************************************/
-    case Key_21:
+
+    case Key_21:            // チャプター戻る:
       if(mode) {
-        
+        Keyboard.press(KEY_LEFT_SHIFT);
+        delay(5);
+        Keyboard.press(KEY_LEFT_ARROW);
+        Keyboard.releaseAll();
       }else {
-        
+        // 規定動作なし:
       }
       break;
-/*******************************************/
-    case Key_22:
+
+    case Key_22:            // チャプター進む:
       if(mode) {
-       
+        Keyboard.press(KEY_LEFT_SHIFT);
+        delay(5);
+        Keyboard.press(KEY_RIGHT_ARROW);
+        Keyboard.releaseAll();
       }else {
-        
+        // 規定動作なし:
       }
       break;
-/*******************************************/
-    case Key_23:
+
+    case Key_23:            // 次の動画へ:
       if(mode) {
-        
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press('n');
+        delay(5);
+        Keyboard.releaseAll();
       }else {
-        
+        // 規定動作なし:
       }
       break;
-/*******************************************/ 
-    default:
 
     default:
-#ifdef DEBUG_Serial
+#ifdef DEBUG_Matrix
       Serial.print("Incorrect value was used.");
 #endif
       break;
