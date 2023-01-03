@@ -1,22 +1,38 @@
 /**********About This File**********
   このファイルはサンプルコードです
   YouTube視聴用ショートカットキーボード
-  Version:v1.1
+  Version:v1.2
 ***********************************/
 
 #include <Keyboard.h>
 
-// デバッグ関連の処理の有効無効を指定:
-#define DEBUG_Serial
+// キーマトリクスの処理の有効無効を指定:
+// #define DEBUG_Matrix
 
 // 実行速度モニタリングの有効無効を指定:
-#define DEBUG_Times
+// #define DEBUG_Times
 
 // テスト用にキー出力を無効にする:
-//#define TEST
+// #define TEST
 
 // 読み取り間隔 (microsec):
-#define delayTime 5000
+#ifdef DEBUG
+ #define delayTime 250000
+#else
+ #define delayTime 5000
+#endif
+
+#ifdef DEBUG_Times
+ #ifndef DEBUG
+  #define DEBUG
+ #endif
+#endif
+
+#ifdef DEBUG_Matrix
+ #ifndef DEBUG
+  #define DEBUG
+ #endif
+#endif
 
 // キー出力モードの指定用:
 #define MODE_Press   true
@@ -56,12 +72,6 @@ const uint8_t keyMap[sizeof(Scan)][sizeof(Read)] = {{Key_00, Key_01, Key_02, Key
 
 // キーマトリクスの状態保存用配列:
 volatile uint8_t Matrix[sizeof(Scan)][sizeof(Read)];
-
-#ifdef DEBUG_Times
- #ifndef DEBUG_Serial
-  #define DEBUG_Serial
- #endif
-#endif
 
 void setup(void) {
 #ifdef DEBUG
