@@ -58,9 +58,9 @@ const uint8_t keyMap[sizeof(Scan)][sizeof(Read)] = {{Key_00, Key_01, Key_02, Key
 volatile uint8_t Matrix[sizeof(Scan)][sizeof(Read)];
 
 #ifdef DEBUG_Times
-  #ifndef DEBUG_Serial
+ #ifndef DEBUG_Serial
   #define DEBUG_Serial
-  #endif
+ #endif
 #endif
 
 void setup(void) {
