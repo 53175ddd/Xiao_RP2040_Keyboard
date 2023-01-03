@@ -72,7 +72,7 @@
 
 ## サンプルコードについて
 
-- [`for_YouTube3.ino`](./Arduino/sample/for_YouTube/for_YouTube.ino)
+- [`for_YouTube3.ino`](./Arduino/sample/for_YouTube3/for_YouTube3.ino)
 
 3x4 キーボードの各キーに割り当てられている機能は以下の表の通りです
 
@@ -88,7 +88,7 @@
   </tr>
 </table>
 
-- [`for_YouTube4.ino`](./Arduino/sample/for_YouTube/for_YouTube.ino)
+- [`for_YouTube4.ino`](./Arduino/sample/for_YouTube4/for_YouTube4.ino)
 
 4x4 キーボードの各キーに割り当てられている機能は以下の表の通りです
 
