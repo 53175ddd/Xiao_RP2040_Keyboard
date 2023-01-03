@@ -54,8 +54,10 @@
     - ファームウェアの骨格のみを記述したファイル
   - `/sample`
     - サンプルコード保存場所
-    - [`/for_YouTube/for_YouTube.ino`](./Arduino/sample/for_YouTube/for_YouTube.ino)
-      - YouTube 視聴用のショートカットキーボード
+    - [`/for_YouTube/for_YouTube.ino`](./Arduino/sample/for_YouTube3/for_YouTube3.ino)
+      - YouTube 視聴用のショートカットキーボード（3x4）
+    - [`/for_YouTube/for_YouTube.ino`](./Arduino/sample/for_YouTube4/for_YouTube4.ino)
+      - YouTube 視聴用のショートカットキーボード（4x4）
 - `/Python`
   - やる気があったら MicroPython で再実装するつもりですがやるかどうかは分かりません
 - `/UF2`
