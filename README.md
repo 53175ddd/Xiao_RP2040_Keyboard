@@ -46,6 +46,11 @@
   </tr>
 </table>
 
+## CAD イメージ図
+
+<div align="center"><img src="https://user-images.githubusercontent.com/91242561/212581923-65a2985a-8729-4781-8267-924cb060ff8f.png" width=75%></div>
+<div align="center"><img src="https://user-images.githubusercontent.com/91242561/212581941-c41294f9-9366-46a3-a39c-c6ce5d9fab70.png" width=75%></div>
+
 ## ファイル・フォルダについて
 
 - `/Arduino`
