@@ -48,9 +48,10 @@ https://github.com/Nch-MOSFET/Xiao_RP2040_Keyboard/blob/cac49ef702fcf1dcca2a3a3e
   - ソースファイル保存場所
   - [`/main/main.ino`](./Arduino/main/main.ino)
     - ファームウェアの骨格のみを記述したファイル
+    - ※中級者以上向け
   - `/sample`
     - サンプルコード保存場所
-    - [`/for_YouTube4/for_YouTube4.ino`](./Arduino/sample/for_YouTube4/for_YouTube4.ino)
+    - [`/for_YouTube/for_YouTube.ino`](./Arduino/sample/for_YouTube/for_YouTube.ino)
       - YouTube 視聴用のショートカットキーボード（4x4）
 - `LICENCE`
   - 二次利用に関するライセンスです。必ず利用前にご確認ください
