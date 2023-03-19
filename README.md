@@ -2,7 +2,15 @@
 
 ## 概要
 
-キーマトリクスを使用して 4x4 のキーボードとしています
+キーマトリクスを使用して 4x4 のキーボードとしています  
+リポジトリ名は `Xiao_RP2040_Keyboard` ですが、ProMicro にも対応しています
+
+具体的には `main.ino` の場合 13 行目か 16 行目、`for_YouTube.ino` の場合は 19 行目か 22 行目のどちらをコメントアウトするかによって、ピンの定義の参照先が切り替わります  
+デフォルトでは、Xiao RP2040 を使用する設定になっています
+
+https://github.com/Nch-MOSFET/Xiao_RP2040_Keyboard/blob/cac49ef702fcf1dcca2a3a3e28b84382c639709c/Arduino/main/main.ino#L12-L16
+
+https://github.com/Nch-MOSFET/Xiao_RP2040_Keyboard/blob/cac49ef702fcf1dcca2a3a3e28b84382c639709c/Arduino/sample/for_YouTube/for_YouTube.ino#L18-L22
 
 ## 機能
 
